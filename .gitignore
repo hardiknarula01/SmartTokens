@@ -1,0 +1,81 @@
+venv/
+.venv/
+.env
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+
+# ── Secrets — NEVER commit these ──────────────────────────────────────────────
+.env
+.env.local
+.env.development
+.env.production
+*.key
+*.pem
+*.p12
+*.pfx
+
+# ── Python virtual environment ─────────────────────────────────────────────────
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# ── Python packaging ───────────────────────────────────────────────────────────
+*.egg-info/
+*.egg
+dist/
+build/
+wheels/
+*.whl
+
+# ── pytest cache ───────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.coveragerc
+
+# ── VS Code settings ───────────────────────────────────────────────────────────
+.vscode/
+*.code-workspace
+
+# ── Docker ─────────────────────────────────────────────────────────────────────
+# Keep docker-compose.yml but ignore override files with secrets
+docker-compose.override.yml
+
+# ── Database ───────────────────────────────────────────────────────────────────
+*.sql.bak
+*.dump
+*.sqlite
+*.db
+
+# ── OS files ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+
+# ── Logs ───────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── ML models and large files ──────────────────────────────────────────────────
+# These are too large for GitHub
+*.bin
+*.pt
+*.pth
+*.onnx
+*.h5
+models/
+
+# ── Node (if you add frontend later) ──────────────────────────────────────────
+node_modules/
+.next/
+npm-debug.log
+yarn-error.log
