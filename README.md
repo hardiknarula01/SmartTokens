@@ -1,4 +1,4 @@
-# SmartToken 🛡️
+# SmartTokens 🛡️
 
 > AI Token Optimization Proxy — Reduce your AI API costs by 50–80% with zero code changes.
 
@@ -264,18 +264,6 @@ SmartToken works with any OpenAI-compatible API.
 | OpenAI    | gpt-4o                   | Paid      |
 | Anthropic | claude-haiku-4-5         | Paid      |
 | Anthropic | claude-sonnet-4-6        | Paid      |
-
----
-
-## Development Roadmap
-
-- [x] Day 1 — FastAPI proxy + text preprocessor
-- [x] Day 2 — Token savings visible in response + /stats endpoint
-- [x] Day 3 — PostgreSQL permanent storage with Docker
-- [ ] Day 4 — LLMLingua-2 compression (30–50% additional savings)
-- [ ] Day 5 — Semantic cache with Redis
-- [ ] Day 6 — Smart model router (route by complexity)
-- [ ] Day 7 — Analytics dashboard
 
 ---
 
