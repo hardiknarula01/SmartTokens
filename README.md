@@ -295,8 +295,11 @@ pytest tests/ -v --cov=app
 
 ## License
 
-MIT License — free to use, modify, and distribute.
+This project is licensed under the Apache License 2.0.
 
+Copyright © 2026 Hardik Narula
+
+You may use, modify, and distribute this software in accordance with the terms of the Apache License 2.0. See the LICENSE file for details.
 ---
 
 ## Author
