@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16          # use official PostgreSQL 16 image
+    container_name: smarttoken_db
+    environment:
+      POSTGRES_DB:       smarttoken   # database name
+      POSTGRES_USER:     postgres     # username
+      POSTGRES_PASSWORD: postgres     # password
+    ports:
+      - "5432:5432"             # expose port 5432 to your machine
+    volumes:
+      - smarttoken_db_data:/var/lib/postgresql/data  # persist data on disk
+
+volumes:
+  smarttoken_db_data:           # named volume — data survives container restart
