@@ -3,18 +3,18 @@ from fastapi import FastAPI
 from app.router import router
 from app.db import init_db, get_all_stats
 from app.stats import get_stats
+from app.cache import init_cache, get_cache_stats
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Runs once at startup — connects to database
-    await init_db()
+    await init_db()     # connect PostgreSQL
+    await init_cache()  # connect Redis
     yield
-    # Runs once at shutdown — nothing needed here yet
 
 app = FastAPI(
     title="SmartToken",
     description="AI Token Optimization Proxy",
-    version="0.3.0",
+    version="0.4.0",
     lifespan=lifespan
 )
 
@@ -22,29 +22,33 @@ app.include_router(router, prefix="/v1")
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "version": "0.3.0"}
+    return {"status": "ok", "version": "0.4.0"}
 
 @app.get("/stats")
 async def stats():
-    # Try database first — permanent data
-    db_stats = await get_all_stats()
+    db_stats    = await get_all_stats()
+    cache_stats = await get_cache_stats()
 
     if db_stats:
-        # Database is connected — use real permanent stats
-        total_in  = db_stats["total_tokens_in"]
-        total_saved = db_stats["total_tokens_saved"]
+        total_in    = int(db_stats["total_tokens_in"])
+        total_saved = int(db_stats["total_tokens_saved"])
         avg = round((total_saved / total_in * 100), 1) if total_in > 0 else 0
         return {
             "source":             "database",
             "total_requests":     int(db_stats["total_requests"]),
-            "total_tokens_in":    int(db_stats["total_tokens_in"]),
+            "total_tokens_in":    total_in,
             "total_tokens_sent":  int(db_stats["total_tokens_sent"]),
-            "total_tokens_saved": int(db_stats["total_tokens_saved"]),
+            "total_tokens_saved": total_saved,
             "total_tokens_out":   int(db_stats["total_tokens_out"]),
-            "avg_reduction_pct":  f"{avg}%"
+            "avg_reduction_pct":  f"{avg}%",
+            "cache":              cache_stats
         }
     else:
-        # Database not connected — fall back to in-memory stats
         result = get_stats()
         result["source"] = "memory"
+        result["cache"]  = cache_stats
         return result
+
+@app.get("/cache/stats")
+async def cache_stats():
+    return await get_cache_stats()

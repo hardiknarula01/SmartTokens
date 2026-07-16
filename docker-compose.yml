@@ -12,6 +12,16 @@ services:
       - "5432:5432"             # expose port 5432 to your machine
     volumes:
       - smarttoken_db_data:/var/lib/postgresql/data  # persist data on disk
-
+  redis:
+    image: redis:7-alpine
+    container_name: smarttoken_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - smarttoken_redis_data:/data
+    command: redis-server --save 60 1 --loglevel warning
+    # --save 60 1 means save to disk every 60 seconds if at least 1 key changed
+    # This gives Redis some persistence so cache survives container restart
 volumes:
-  smarttoken_db_data:           # named volume — data survives container restart
+  smarttoken_db_data: 
+  smarttoken_redis_data:          # named volume — data survives container restart
